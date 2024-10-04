@@ -1,5 +1,6 @@
 package org.example;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -28,6 +29,8 @@ public class OpenSearchConsumer {
 
         properties.setProperty("group.id", "opensearch-consumers");
         properties.setProperty("auto.offset.reset", "latest");
+        properties.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+
 
         return properties;
     }
@@ -56,6 +59,8 @@ public class OpenSearchConsumer {
                     String openSearchId = myOpenSearchClient.storeData(indexName, record.value());
                     logger.info("Document inserted into {}/{}/_doc/{}", OPEN_SEARCH_URL, indexName, openSearchId);
                 }
+                kafkaConsumer.commitSync();
+                logger.info("commited {} records", records.count());
             }
 
         }
