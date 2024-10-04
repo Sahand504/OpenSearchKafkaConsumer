@@ -4,10 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.opensearch.client.RequestOptions;
 import org.opensearch.client.RestHighLevelClient;
-import org.opensearch.client.indices.CreateIndexRequest;
-import org.opensearch.client.indices.GetIndexRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
