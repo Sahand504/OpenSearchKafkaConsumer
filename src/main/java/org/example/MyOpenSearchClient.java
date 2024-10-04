@@ -6,6 +6,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
+import org.opensearch.action.bulk.BulkRequest;
 import org.opensearch.action.index.IndexRequest;
 import org.opensearch.action.index.IndexResponse;
 import org.opensearch.client.RequestOptions;
@@ -79,4 +80,10 @@ public class MyOpenSearchClient {
         IndexRequest indexRequest = new IndexRequest(indexName).source(data, XContentType.JSON);
         return openSearchClient.index(indexRequest, RequestOptions.DEFAULT).getId();
     }
+
+    public void addDataToBulk(BulkRequest bulkRequest, String indexName, String data) throws IOException {
+        IndexRequest indexRequest = new IndexRequest(indexName).source(data, XContentType.JSON);
+        bulkRequest.add(indexRequest);
+    }
+
 }
